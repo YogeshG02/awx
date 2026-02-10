@@ -2,4 +2,5 @@ all:
   children:
     Cisco_Devices_copy:
       hosts:
+        10.23.111.1  
         10.23.111.3:
