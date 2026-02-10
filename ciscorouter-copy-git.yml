@@ -1,0 +1,18 @@
+---
+- name: Backup Cisco IOS Config
+  hosts: Cisco_Devices_copy
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Get current timestamp
+      command: date +%Y%m%d-%H-%M-%S
+      register: timestamp
+      delegate_to: localhost
+
+    - name: Backup IOS configuration
+      ios_config:
+        backup: yes
+        backup_options:
+          filename: "running-config-{{ timestamp.stdout }}"
+          dir_path: "/backup/{{ inventory_hostname }}"
